@@ -1,0 +1,100 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-brand-cream text-brand-ink font-sans antialiased;
+    font-feature-settings: "ss03", "tnum";
+    letter-spacing: -0.01em;
+  }
+
+  /* selection */
+  ::selection {
+    @apply bg-brand-red text-white;
+  }
+
+  /* focus ring */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-red;
+  }
+
+  /* korean number tabular */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-5 md:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 active:scale-[0.98];
+  }
+
+  .btn-lg {
+    @apply px-7 py-4 text-base;
+  }
+
+  .btn-md {
+    @apply px-5 py-3 text-sm;
+  }
+
+  .btn-primary {
+    @apply bg-brand-red text-white hover:bg-brand-red-deep shadow-card hover:shadow-card-hover;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-brand-ink hover:bg-brand-ink/5;
+  }
+
+  .btn-outline {
+    @apply border border-brand-ink/20 text-brand-ink hover:border-brand-ink hover:bg-brand-ink hover:text-white;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-brand-red-soft px-3 py-1 text-xs font-semibold text-brand-red-deep;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .section-tight {
+    @apply py-12 md:py-16;
+  }
+
+  .heading-eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-brand-red;
+  }
+
+  .card-soft {
+    @apply rounded-2xl bg-white shadow-card transition-shadow hover:shadow-card-hover;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-brand-gray-line bg-white px-4 py-3 text-base text-brand-ink placeholder:text-brand-gray focus:border-brand-red focus:outline-none focus:ring-4 focus:ring-brand-red/10;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-brand-ink;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
