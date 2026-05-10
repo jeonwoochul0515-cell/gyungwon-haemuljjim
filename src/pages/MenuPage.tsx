@@ -49,11 +49,22 @@ export default function MenuPage() {
             {signature.map((m, i) => (
               <Reveal key={m.slug} delay={i * 0.06}>
                 <article className="card-soft overflow-hidden">
-                  <DishPlaceholder
-                    label={m.name}
-                    variant={i % 2 === 0 ? "red" : "dark"}
-                    className="aspect-[16/10] w-full rounded-none"
-                  />
+                  {m.image ? (
+                    <div className="aspect-[16/10] w-full overflow-hidden">
+                      <img
+                        src={m.image}
+                        alt={m.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                  ) : (
+                    <DishPlaceholder
+                      label={m.name}
+                      variant={i % 2 === 0 ? "red" : "dark"}
+                      className="aspect-[16/10] w-full rounded-none"
+                    />
+                  )}
                   <div className="p-6 md:p-8">
                     <div className="flex items-center gap-3">
                       <h3 className="font-display text-2xl font-extrabold text-brand-ink">

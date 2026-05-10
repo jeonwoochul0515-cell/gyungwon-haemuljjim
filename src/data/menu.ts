@@ -7,6 +7,7 @@ export interface MenuItem {
   price?: number;
   badge?: string;
   imagePlaceholder?: string;
+  image?: string;
 }
 
 export const signature: MenuItem[] = [
@@ -22,6 +23,7 @@ export const signature: MenuItem[] = [
       { label: "대", serves: "4~5인", price: 66000 },
     ],
     badge: "BEST",
+    image: new URL("../assets/haemul-jjim.jpg", import.meta.url).href,
   },
   {
     slug: "agu-jjim",
@@ -34,6 +36,7 @@ export const signature: MenuItem[] = [
       { label: "중", serves: "3~4인", price: 48000 },
       { label: "대", serves: "4~5인", price: 58000 },
     ],
+    image: new URL("../assets/agu-jjim.jpg", import.meta.url).href,
   },
   {
     slug: "soonsal-agu-jjim",
@@ -45,6 +48,7 @@ export const signature: MenuItem[] = [
       { label: "소", serves: "2~3인", price: 40000 },
       { label: "중", serves: "3~4인", price: 52000 },
     ],
+    image: new URL("../assets/soonsal-agu.jpg", import.meta.url).href,
   },
   {
     slug: "seokkeo-jjim",
@@ -56,6 +60,7 @@ export const signature: MenuItem[] = [
       { label: "소", serves: "2~3인", price: 40000 },
       { label: "중", serves: "3~4인", price: 52000 },
     ],
+    image: new URL("../assets/mixed-jjim.jpg", import.meta.url).href,
   },
 ];
 
@@ -68,6 +73,7 @@ export const sides: MenuItem[] = [
       "남은 양념에 밥과 김, 참기름을 더해 누룽지처럼 눌러 먹는 마무리. 경원해물찜의 진짜 마지막 한 입.",
     price: 3000,
     badge: "MUST",
+    image: new URL("../assets/bokkeumbap-hero.jpg", import.meta.url).href,
   },
   {
     slug: "tuna-mayo",
