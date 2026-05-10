@@ -408,10 +408,10 @@ export const storeCoords: Record<string, [number, number]> = {
 };
 
 // stores 배열에 coords 주입 — JSON(카카오 지오코딩) 우선, 없으면 추정 폴백
-const geocodedMap = geocoded as Record<string, [number, number]>;
+const geocodedMap = geocoded as unknown as Record<string, [number, number]>;
 stores.forEach((s) => {
   const fromJson = geocodedMap[s.slug];
-  if (fromJson) s.coords = fromJson;
+  if (fromJson && fromJson.length === 2) s.coords = [fromJson[0], fromJson[1]];
   else if (storeCoords[s.slug]) s.coords = storeCoords[s.slug];
 });
 

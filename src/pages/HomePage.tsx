@@ -26,6 +26,7 @@ import bokkeumbapSide from "../assets/bokkeumbap-side.jpg";
 import shrimpAction from "../assets/shrimp-action.jpg";
 import wokFire from "../assets/wok-fire.jpg";
 import duo from "../assets/duo.jpg";
+import bgDuo from "../assets/bg-duo.jpg";
 
 export default function HomePage() {
   const storeCount = stores.length;
@@ -116,16 +117,34 @@ export default function HomePage() {
       </section>
 
       {/* 슬로건 / 카피 — 본사 자체 카피 활용 */}
-      <section className="bg-brand-ink py-14 md:py-20">
-        <div className="container-x text-center">
+      <section className="relative isolate overflow-hidden bg-brand-ink py-16 md:py-24">
+        {/* 배경 음식 사진 — 은은하게 */}
+        <img
+          src={bgDuo}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
+          loading="lazy"
+        />
+        {/* 어두운 오버레이로 텍스트 가독성 확보 */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/85 via-brand-ink/70 to-brand-ink/95"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0)_0%,_rgba(26,26,26,0.55)_70%)]"
+        />
+
+        <div className="container-x relative text-center">
           <Reveal>
-            <Quote className="mx-auto h-8 w-8 text-brand-gold" />
-            <p className="mt-5 font-display text-2xl font-extrabold leading-snug text-white md:text-4xl">
+            <Quote className="mx-auto h-8 w-8 text-brand-gold drop-shadow" />
+            <p className="mt-5 font-display text-2xl font-extrabold leading-snug text-white drop-shadow-sm md:text-4xl">
               먹어보지 못한 사람은 있어도,
               <br />
               <span className="text-brand-gold">한 번만 먹어본 사람은 없다.</span>
             </p>
-            <p className="mt-5 text-sm text-white/65 md:text-base">
+            <p className="mt-5 text-sm text-white/75 md:text-base">
               해물찜의 생명은 진짜 신선한 해물 — 경원해물찜의 약속입니다.
             </p>
           </Reveal>
