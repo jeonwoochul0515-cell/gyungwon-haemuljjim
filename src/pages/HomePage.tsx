@@ -13,6 +13,13 @@ import {
   Fish,
   Utensils,
   Quote,
+  ShieldCheck,
+  PhoneCall,
+  Building2,
+  HandCoins,
+  MessageCircle,
+  Clock,
+  CheckCircle2,
 } from "lucide-react";
 import { Reveal } from "../components/ui/Reveal";
 import { Stat } from "../components/ui/Stat";
@@ -82,6 +89,24 @@ export default function HomePage() {
               <Stat value={`${storeCount}+`} label="전국 가맹점" hint="2026년 기준" />
               <Stat value="6년" label="브랜드 운영" hint="2020.03~" />
               <Stat value="5단계" label="맵기 조절" hint="순한맛~매운맛" />
+            </div>
+
+            {/* Trust badges — Authority (가맹사업법 등록 사실 강조) */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              {[
+                "정보공개서 등록",
+                "가맹금 예치 (경남은행)",
+                "공정위 시정조치 0건",
+                "2024 광고분담금 0원",
+              ].map((t) => (
+                <span
+                  key={t}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-brand-ink/10 bg-white/70 px-3 py-1.5 text-[11px] font-semibold text-brand-ink/75 shadow-sm backdrop-blur"
+                >
+                  <ShieldCheck className="h-3.5 w-3.5 text-brand-red" />
+                  {t}
+                </span>
+              ))}
             </div>
           </Reveal>
 
@@ -543,69 +568,156 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Franchise CTA */}
+      {/* Franchise CTA — 심리학 강화 (손실회피·상호성·CEO·Implementation Intention) */}
       <section className="section bg-brand-ink text-white relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 opacity-30">
           <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-brand-red blur-3xl" />
           <div className="absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-brand-gold blur-3xl" />
         </div>
+
         <div className="container-x relative">
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <Reveal>
-              <span className="badge bg-brand-red text-white">
-                FRANCHISE
+          {/* 활동 카운터 — 사회적 증거 + FOMO */}
+          <Reveal>
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-gold opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-gold"></span>
               </span>
+              <span className="text-xs text-white/85">
+                이번 주 가맹 상담 진행 중 · 인접 상권은 선접수 우선 검토
+              </span>
+            </div>
+          </Reveal>
+
+          <div className="grid items-start gap-10 md:grid-cols-2">
+            <Reveal>
+              <span className="badge bg-brand-red text-white">FRANCHISE</span>
               <h2 className="mt-4 font-display text-display-lg font-extrabold text-balance">
                 30+ 가맹점이 선택한
                 <br />
-                검증된 외식 브랜드
+                <span className="text-brand-gold">검증된 외식 브랜드</span>
               </h2>
-              <p className="mt-5 max-w-lg text-pretty text-white/75 md:text-lg">
+
+              {/* 손실회피 — Loss Aversion */}
+              <div className="mt-6 rounded-xl border border-white/15 bg-white/5 p-4 backdrop-blur">
+                <p className="text-sm leading-relaxed text-white/85">
+                  <strong className="text-white">"다음에 알아볼게요"</strong>는 사실{" "}
+                  <strong className="text-brand-gold">
+                    "지금 시작한 사람에게 그 자리를 양보합니다"
+                  </strong>
+                  와 같은 결정입니다. 외식업의 입지는 한 번 빠지면 다시 들어올 수 없습니다.
+                </p>
+              </div>
+
+              <p className="mt-6 max-w-lg text-pretty text-white/75 md:text-lg">
                 본사 식자재 직공급 · 5단계 맵기 표준 · 6년의 운영 노하우.
                 <br />
                 지역별 상권을 본사가 직접 분석해 드립니다.
               </p>
+
+              {/* 상호성 — 상담 시 받는 4가지 */}
+              <div className="mt-7">
+                <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-brand-gold">
+                  상담 신청 시 받게 되는 것
+                </div>
+                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                  {[
+                    { icon: <Building2 className="h-4 w-4" />, t: "상권 데이터 무료 분석" },
+                    { icon: <HandCoins className="h-4 w-4" />, t: "인테리어·집기 견적" },
+                    { icon: <ShieldCheck className="h-4 w-4" />, t: "정보공개서 14일 사전" },
+                    { icon: <MessageCircle className="h-4 w-4" />, t: "1:1 본사 직통 상담" },
+                  ].map((item) => (
+                    <div
+                      key={item.t}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/5 p-3 backdrop-blur"
+                    >
+                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-brand-red text-white">
+                        {item.icon}
+                      </span>
+                      <span className="text-xs font-medium leading-snug text-white/90">
+                        {item.t}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link to="/franchise" className="btn btn-lg btn-primary">
-                  창업 상담 신청
+                  5분 상담 신청
                   <ArrowRight className="h-5 w-5" />
                 </Link>
                 <a
                   href="tel:1522-3862"
                   className="btn btn-lg btn-outline border-white/30 text-white hover:bg-white hover:text-brand-ink"
                 >
+                  <PhoneCall className="h-5 w-5" />
                   본사 1522-3862
                 </a>
               </div>
+
+              {/* Implementation Intention — Gollwitzer 1999 */}
+              <p className="mt-4 inline-flex items-center gap-2 text-xs text-white/60">
+                <Clock className="h-3.5 w-3.5" />
+                5분 폼 → 1영업일 내 본사 직통 통화 · 상담 무료 · 의무 없음
+              </p>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-2xl bg-white/5 p-6 backdrop-blur">
-                  <div className="text-xs text-white/50">예상 창업비용</div>
-                  <div className="mt-2 font-display text-3xl font-extrabold tabular">
-                    7,992<span className="text-base text-white/60">만원~</span>
+              {/* 김경희 대표 한 마디 — Liking + StoryBrand */}
+              <div className="rounded-2xl border border-brand-gold/30 bg-gradient-to-br from-brand-gold/10 to-white/5 p-7 backdrop-blur">
+                <Quote className="h-7 w-7 text-brand-gold" />
+                <p className="mt-3 font-display text-xl font-extrabold leading-snug text-white md:text-2xl">
+                  "혼자 시작하지 마세요.
+                  <br />
+                  <span className="text-brand-gold">
+                    같은 시스템 안에서 같이 가야 멀리 갑니다.
+                  </span>
+                  "
+                </p>
+                <div className="mt-5 flex items-center gap-3">
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand-red font-display text-base font-extrabold text-white">
+                    慶
                   </div>
-                  <div className="mt-2 text-xs text-white/55">
-                    *33㎡ 기준, 본사 상담 시 정확한 비용 안내
+                  <div>
+                    <div className="font-bold">김경희 대표</div>
+                    <div className="text-xs text-white/60">
+                      경원해물찜 사업본부 · 2020년 사림동에서 시작
+                    </div>
                   </div>
                 </div>
-                <div className="rounded-2xl bg-brand-red p-6">
-                  <div className="text-xs text-white/70">현재 모집 지역</div>
-                  <div className="mt-2 font-display text-3xl font-extrabold">한정</div>
-                  <div className="mt-2 text-xs text-white/80">
-                    상권 보호를 위해 지역별 모집 인원을 제한합니다.
+              </div>
+
+              {/* 비용 + 한정 */}
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                <div className="rounded-2xl bg-white/5 p-5 backdrop-blur">
+                  <div className="text-[11px] text-white/50">예상 창업비용</div>
+                  <div className="mt-1 font-display text-2xl font-extrabold tabular md:text-3xl">
+                    7,992
+                    <span className="text-sm text-white/60">만원~</span>
+                  </div>
+                  <div className="mt-1 text-[11px] text-white/50">
+                    *33㎡ 기준, 정확한 비용은 상담 시 안내
                   </div>
                 </div>
-                <div className="col-span-2 rounded-2xl bg-white/5 p-6 backdrop-blur">
-                  <div className="flex items-center gap-3">
-                    <Award className="h-5 w-5 text-brand-gold" />
-                    <span className="font-semibold">왜 지금이 적기인가요?</span>
+                <div className="rounded-2xl bg-brand-red p-5">
+                  <div className="text-[11px] text-white/80">모집 지역</div>
+                  <div className="mt-1 font-display text-2xl font-extrabold md:text-3xl">
+                    한정
                   </div>
-                  <p className="mt-3 text-sm text-white/70">
-                    본사는 안정적인 식자재 공급망을 갖추고 가맹사업을 본격 확장 중입니다.
-                    부산·광주·전남까지 진출했으며, 현재 인접 신도시 상권 우선 검토 단계입니다.
-                  </p>
+                  <div className="mt-1 text-[11px] text-white/80">
+                    상권 보호를 위해 지역별 인원 제한
+                  </div>
+                </div>
+              </div>
+
+              {/* Risk Reversal 띠 */}
+              <div className="mt-4 flex items-start gap-3 rounded-2xl bg-white/5 p-5 backdrop-blur">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold" />
+                <div className="text-xs leading-relaxed text-white/75">
+                  <strong className="text-white">상담은 무료, 의무 없음.</strong> 정보공개서·가맹계약서 등
+                  법정 서류는 계약 14일 전 사전 제공됩니다. 가맹금은 경남은행에 예치되어 안전하게
+                  보호됩니다.
                 </div>
               </div>
             </Reveal>
