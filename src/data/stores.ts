@@ -22,6 +22,8 @@ export interface Store {
   break?: string;
   closed?: string;
   verified: "본사" | "외부" | "교차" | "미확정";
+  /** [위도, 경도] — 시·동 단위 추정 좌표 (지도 마커용) */
+  coords?: [number, number];
 }
 
 /**
@@ -362,6 +364,56 @@ export const stores: Store[] = [
     verified: "외부",
   },
 ];
+
+// 카카오 지오코딩 결과 — `npm run geocode` 실행으로 갱신
+import geocoded from "./stores.geocoded.json";
+
+/**
+ * 행정동·도로명 중심 추정 좌표 (폴백).
+ * 카카오 지오코딩(JSON) 결과가 우선이며, 누락된 점포는 이 값으로 표시.
+ */
+export const storeCoords: Record<string, [number, number]> = {
+  gwangyang: [34.9407, 127.6957],
+  geochang: [35.6856, 127.91],
+  sacheon: [35.082, 128.082],
+  pyeonggeo: [35.1953, 128.0596],
+  hadae: [35.1729, 128.1257],
+  mujeon: [34.8688, 128.4257],
+  jukrim: [34.8843, 128.4419],
+  gohyeon: [34.881, 128.6207],
+  goseong: [34.974, 128.3232],
+  bukmyeon: [35.33, 128.6321],
+  shinmasan: [35.1958, 128.567],
+  sangnam: [35.2275, 128.6817],
+  jinyeong: [35.3071, 128.7445],
+  haman: [35.2718, 128.4067],
+  "myeongji-ocean": [35.0921, 128.9087],
+  myeongji: [35.0967, 128.9176],
+  jangyu: [35.186, 128.8085],
+  imho: [35.1393, 126.78],
+  hwamyeong: [35.2378, 129.0122],
+  banyeo: [35.2218, 129.1192],
+  "yangsan-jeungsan": [35.3036, 128.977],
+  naeoe: [35.2294, 128.8742],
+  samgye: [35.2613, 128.8612],
+  namji: [35.4216, 128.4748],
+  jungri: [35.2467, 128.5258],
+  changwon: [35.251, 128.648],
+  yulha: [35.203, 128.8027],
+  yongwon: [35.0871, 128.8261],
+  "geoje-jangpyeong": [34.8919, 128.6242],
+  jinhae: [35.1535, 128.7138],
+  "yangsan-beomeo": [35.3349, 129.0397],
+  gyeongsan: [35.8307, 128.74],
+};
+
+// stores 배열에 coords 주입 — JSON(카카오 지오코딩) 우선, 없으면 추정 폴백
+const geocodedMap = geocoded as Record<string, [number, number]>;
+stores.forEach((s) => {
+  const fromJson = geocodedMap[s.slug];
+  if (fromJson) s.coords = fromJson;
+  else if (storeCoords[s.slug]) s.coords = storeCoords[s.slug];
+});
 
 export const regionGroups: { id: Region; label: string }[] = [
   { id: "경남-창원", label: "창원" },

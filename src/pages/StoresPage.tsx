@@ -4,6 +4,7 @@ import { MapPin, Phone, Clock, Search, ShieldCheck } from "lucide-react";
 import { Reveal } from "../components/ui/Reveal";
 import { stores, regionGroups, type Region } from "../data/stores";
 import { cn } from "../lib/cn";
+import { StoresMap } from "../components/sections/StoresMap";
 
 export default function StoresPage() {
   const [query, setQuery] = useState("");
@@ -50,6 +51,21 @@ export default function StoresPage() {
             </h1>
             <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-brand-ink/75 md:text-lg">
               경남 전역과 부산·광주·전남까지. 가까운 매장에서 같은 맛을 만나보세요.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Map */}
+      <section className="bg-brand-cream pb-12 md:pb-16">
+        <div className="container-x">
+          <Reveal>
+            <div className="overflow-hidden rounded-3xl bg-white p-2 shadow-card md:p-3">
+              <StoresMap items={filtered} className="h-[440px] md:h-[560px]" />
+            </div>
+            <p className="mt-3 text-center text-xs text-brand-ink/55">
+              깃발을 클릭하면 매장 정보가 표시됩니다 · 좌표는 행정동 기준 추정값으로,
+              정확한 위치는 카드의 「지도에서 보기」를 눌러주세요.
             </p>
           </Reveal>
         </div>

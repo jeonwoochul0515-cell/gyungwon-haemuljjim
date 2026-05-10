@@ -1,0 +1,260 @@
+/* 경원해물찜 매장 지도 + 펄럭이는 깃발 마커 (Google Maps + AdvancedMarker) */
+
+.kw-map {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #e9eef2;
+  z-index: 0;
+}
+
+/* AdvancedMarker는 콘텐츠 중앙 하단이 anchor.
+   깃발 받침(점)이 정확히 그 위치에 오도록 wrapper로 보정. */
+.kw-flag {
+  position: relative;
+  width: 96px;
+  height: 64px;
+  pointer-events: auto;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.18));
+  transform: translate(-44px, 0);
+}
+
+/* 막대 받침 (땅에 박힌 점) */
+.kw-flag-base {
+  position: absolute;
+  left: 41px;
+  bottom: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.18);
+}
+
+/* 깃대 */
+.kw-flag-pole {
+  position: absolute;
+  left: 45px;
+  bottom: 0;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 1px;
+}
+
+/* 깃발 천 */
+.kw-flag-cloth {
+  position: absolute;
+  left: 47px;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4px 12px 4px 8px;
+  height: 26px;
+  background: #c8102e;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
+  transform-origin: left center;
+  animation: kw-flag-wave 1.6s ease-in-out infinite;
+  transform: skewY(-3deg);
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.kw-flag.is-verified .kw-flag-cloth {
+  background: linear-gradient(135deg, #c8102e 0%, #a00d24 100%);
+}
+
+.kw-flag.is-cross .kw-flag-cloth {
+  background: linear-gradient(135deg, #1a1a1a 0%, #383838 100%);
+}
+
+.kw-flag-text {
+  display: inline-block;
+  transform: skewY(3deg);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes kw-flag-wave {
+  0% {
+    transform: skewY(-3deg) skewX(0deg) scaleX(1);
+  }
+  25% {
+    transform: skewY(-1deg) skewX(-2deg) scaleX(0.98);
+  }
+  50% {
+    transform: skewY(1deg) skewX(0deg) scaleX(1.02);
+  }
+  75% {
+    transform: skewY(-1deg) skewX(2deg) scaleX(0.98);
+  }
+  100% {
+    transform: skewY(-3deg) skewX(0deg) scaleX(1);
+  }
+}
+
+.kw-flag:hover {
+  z-index: 1000;
+}
+.kw-flag:hover .kw-flag-cloth {
+  filter: brightness(1.15);
+  animation-duration: 0.9s;
+}
+
+/* CustomOverlay 팝업 카드 */
+.kw-pop-card {
+  position: relative;
+  min-width: 240px;
+  max-width: 280px;
+  padding: 14px 16px 14px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  font-family: inherit;
+  transform: translateY(-12px);
+}
+/* 카드 아래 꼬리(말풍선) */
+.kw-pop-card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.06);
+}
+.kw-pop-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.kw-pop-close:hover {
+  background: #f3f3f3;
+  color: #1a1a1a;
+}
+
+/* 기존 InfoWindow 스타일 유지 (다른 곳에서 재사용 가능) */
+.kw-pop {
+  min-width: 220px;
+  padding: 4px 6px 6px;
+  font-family: inherit;
+}
+.kw-pop-region {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fde6ea;
+  color: #a00d24;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.kw-pop-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+.kw-pop-addr {
+  font-size: 12px;
+  color: #4a4a4a;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.kw-pop-tel {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c8102e;
+  text-decoration: none;
+}
+.kw-pop-tel:hover {
+  text-decoration: underline;
+}
+.kw-pop-hours {
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+.kw-pop-link {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+.kw-pop-link:hover {
+  color: #c8102e;
+}
+
+/* 키 미설정 폴백 */
+.kw-map-fallback {
+  width: 100%;
+  min-height: 480px;
+  border-radius: 1.25rem;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #f8f4ed 0px,
+      #f8f4ed 18px,
+      #f1ebe0 18px,
+      #f1ebe0 36px
+    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.kw-map-fallback-inner {
+  max-width: 480px;
+  background: #fff;
+  border: 1px dashed #d6c9b0;
+  border-radius: 1rem;
+  padding: 1.75rem;
+  text-align: center;
+}
+.kw-map-fallback-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #c8102e;
+  margin-bottom: 8px;
+}
+.kw-map-fallback-desc {
+  font-size: 13px;
+  color: #4a4a4a;
+  line-height: 1.6;
+}
+.kw-map-fallback-desc code {
+  background: #f5f0e6;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.kw-map-fallback-list {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #888;
+}
