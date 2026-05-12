@@ -36,7 +36,7 @@ export const signature: MenuItem[] = [
       { label: "중", serves: "3~4인", price: 48000 },
       { label: "대", serves: "4~5인", price: 58000 },
     ],
-    image: new URL("../assets/agu-jjim.jpg", import.meta.url).href,
+    image: new URL("../assets/agu-jjim.png", import.meta.url).href,
   },
   {
     slug: "soonsal-agu-jjim",
